@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessObjectModel xmlns="http://documentation.bonitasoft.com/bdm-xml-schema/1.0" modelVersion="1.0">
+    <businessObjects>
+        <businessObject qualifiedName="com.company.model.Chambre">
+            <description>Chambre</description>
+            <fields>
+                <field type="INTEGER" length="255" name="numero" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="prix" nullable="true" collection="false"/>
+                <field type="STRING" length="255" name="statut" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.CommandeRestaurant">
+            <fields>
+                <field type="STRING" length="255" name="details" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="montant" nullable="true" collection="false"/>
+                <field type="INTEGER" length="255" name="chambreNumero" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+        <businessObject qualifiedName="com.company.model.Facture">
+            <fields>
+                <field type="STRING" length="255" name="clientNom" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="montantAcompte" nullable="true" collection="false"/>
+                <field type="DOUBLE" length="255" name="montantTotal" nullable="true" collection="false"/>
+                <field type="BOOLEAN" length="255" name="estSoldee" nullable="true" collection="false"/>
+            </fields>
+            <uniqueConstraints/>
+            <queries/>
+            <indexes/>
+        </businessObject>
+    </businessObjects>
+</businessObjectModel>

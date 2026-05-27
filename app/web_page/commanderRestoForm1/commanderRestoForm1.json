@@ -1,0 +1,258 @@
+{
+  "id" : "commanderRestoForm1",
+  "name" : "commanderRestoForm1",
+  "type" : "form",
+  "uuid" : "76597eda-43af-4e7c-82b7-13bfd09498e0",
+  "modelVersion" : "2.6",
+  "lastUpdate" : 1779838227915,
+  "description" : "Page generated with Bonita UI designer",
+  "rows" : [
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "disabled" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "required" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Souhaitez-vous passer une commande au restaurant de l'hôtel ?"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "placeholder" : {
+            "type" : "interpolation",
+            "value" : "Select an option"
+          },
+          "availableValues" : {
+            "type" : "expression",
+            "value" : "optionsResto"
+          },
+          "displayedKey" : {
+            "type" : "constant",
+            "value" : "label"
+          },
+          "returnedKey" : {
+            "type" : "constant",
+            "value" : "valeur"
+          },
+          "value" : {
+            "type" : "variable",
+            "value" : "formInput.choixRestoInput"
+          }
+        },
+        "reference" : "5f6bf71b-53b0-4228-87f0-0e3b64174fe6",
+        "hasValidationError" : false,
+        "id" : "pbSelect"
+      }
+    ],
+    [
+      {
+        "type" : "component",
+        "dimension" : {
+          "xs" : 12,
+          "sm" : 12,
+          "md" : 12,
+          "lg" : 12
+        },
+        "propertyValues" : {
+          "cssClasses" : {
+            "type" : "constant",
+            "value" : ""
+          },
+          "hidden" : {
+            "type" : "constant",
+            "value" : false
+          },
+          "allowHTML" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "labelHidden" : {
+            "type" : "constant",
+            "value" : true
+          },
+          "label" : {
+            "type" : "interpolation",
+            "value" : "Default label"
+          },
+          "labelPosition" : {
+            "type" : "constant",
+            "value" : "top"
+          },
+          "labelWidth" : {
+            "type" : "constant",
+            "value" : 4
+          },
+          "text" : {
+            "type" : "interpolation",
+            "value" : "<button class=\"btn btn-success btn-block\" type=\"button\" style=\"padding: 10px 20px; font-weight: bold;\" onclick=\"\n    // 1. Récupérer les données du formulaire via Angular\n    var scope = angular.element(document.getElementById('content')).scope() || angular.element(this).scope();\n    var dataToSend = scope.properties ? scope.properties.formOutput : null;\n    \n    if(!dataToSend) {\n        // Sécurité si le scope est imbriqué\n        var selectElem = document.querySelector('select');\n        if(selectElem) dataToSend = { 'choixRestoInput': selectElem.value };\n    }\n\n    // 2. Extraire l'ID de la tâche depuis l'URL actuelle\n    var urlTokens = window.location.href.split('/');\n    var taskId = urlTokens[urlTokens.indexOf('taskInstance') + 1];\n    \n    // 3. Forcer l'URL absolue propre sans le dossier parasite\n    var targetUrl = window.location.origin + '/bonita/API/bpm/userTask/' + taskId + '/execution';\n\n    // 4. Envoi de la requête POST manuelle\n    var xhr = new XMLHttpRequest();\n    xhr.open('POST', targetUrl, true);\n    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');\n    \n    xhr.onreadystatechange = function () {\n        if (xhr.readyState === 4) {\n            if (xhr.status === 204 || xhr.status === 200) {\n                alert('Choix enregistré avec succès !');\n                // Redirige vers le portail pour rafraîchir la liste des tâches\n                window.location.href = window.location.origin + '/bonita';\n            } else {\n                alert('Erreur technique Bonita : ' + xhr.status + '\\nAssurez-vous d\\'avoir sélectionné une option.');\n            }\n        }\n    };\n    xhr.send(JSON.stringify(dataToSend));\n\">\n    Confirmer mon choix\n</button>"
+          },
+          "alignment" : {
+            "type" : "constant",
+            "value" : "left"
+          }
+        },
+        "reference" : "7d55f4c3-6524-47a6-b187-e2a291634312",
+        "hasValidationError" : false,
+        "id" : "pbText"
+      }
+    ]
+  ],
+  "variables" : {
+    "task" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}"
+      ],
+      "exposed" : false
+    },
+    "formInput" : {
+      "type" : "json",
+      "value" : [
+        "{\r",
+        "  \"choixRestoInput\" : false\r",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "submit_errors_list" : {
+      "type" : "expression",
+      "value" : [
+        "if($data.formOutput && $data.formOutput._submitError && $data.formOutput._submitError.explanations){",
+        "\tconst liElements = $data.formOutput._submitError.explanations",
+        "\t\t.filter(cause => cause !== null)",
+        "\t\t.map(cause => \"<li>\" + cause + \"</li>\")",
+        "\t\t.join('');",
+        "\tif(liElements){",
+        "\t\treturn \"<ul>\" + liElements + \"</ul>\";",
+        "\t}",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "formOutput" : {
+      "type" : "expression",
+      "value" : [
+        "return {",
+        "\tchoixRestoInput: $data.formInput.choixRestoInput",
+        "}"
+      ],
+      "exposed" : false
+    },
+    "context" : {
+      "type" : "url",
+      "value" : [
+        "../API/bpm/userTask/{{taskId}}/context"
+      ],
+      "exposed" : false
+    },
+    "taskId" : {
+      "type" : "urlparameter",
+      "value" : [
+        "id"
+      ],
+      "exposed" : false
+    },
+    "optionsResto" : {
+      "type" : "expression",
+      "value" : [
+        "return [\r",
+        "  {\"label\": \"Oui, je veux commander\", \"valeur\": \"true\"},\r",
+        "  {\"label\": \"Non, je passe au checkout\", \"valeur\": \"false\"}\r",
+        "];"
+      ],
+      "exposed" : false
+    },
+    "submitURL" : {
+      "type" : "expression",
+      "value" : [
+        "return '/bonita/API/bpm/userTask/' + $data.taskId + '/execution';"
+      ],
+      "exposed" : false
+    },
+    "submitTaskManual" : {
+      "type" : "expression",
+      "value" : [
+        "if ($data.formOutput) {\r",
+        "    var xhr = new XMLHttpRequest();\r",
+        "    // On extrait l'ID de la tâche depuis l'URL de la page actuelle\r",
+        "    var urlTokens = window.location.href.split('/');\r",
+        "    var taskId = urlTokens[urlTokens.indexOf('taskInstance') + 1];\r",
+        "\r",
+        "    var targetUrl = window.location.origin + '/bonita/API/bpm/userTask/' + taskId + '/execution';\r",
+        "\r",
+        "    xhr.open(\"POST\", targetUrl, true);\r",
+        "    xhr.setRequestHeader(\"Content-Type\", \"application/json;charset=UTF-8\");\r",
+        "\r",
+        "    xhr.onreadystatechange = function () {\r",
+        "        if (xhr.readyState === 4) {\r",
+        "            if (xhr.status === 204 || xhr.status === 200) {\r",
+        "                alert(\"Choix enregistré avec succès !\");\r",
+        "                window.location.reload(); // Rafraîchit la page pour passer à la suite\r",
+        "            } else {\r",
+        "                alert(\"Erreur technique : \" + xhr.status + \" - \" + xhr.responseText);\r",
+        "            }\r",
+        "        }\r",
+        "    };\r",
+        "\r",
+        "    xhr.send(JSON.stringify($data.formOutput));\r",
+        "}\r",
+        "return \"\";"
+      ],
+      "exposed" : false
+    }
+  },
+  "assets" : [
+    {
+      "id" : "659aa5d5-2f74-48c9-a021-e5872c7e7d49",
+      "name" : "localization.json",
+      "type" : "json",
+      "order" : 0,
+      "external" : false
+    },
+    {
+      "id" : "068eacb2-e7db-4f86-854c-8dae040495c9",
+      "name" : "style.css",
+      "type" : "css",
+      "order" : 0,
+      "external" : false
+    }
+  ],
+  "inactiveAssets" : [ ],
+  "webResources" : [ ],
+  "hasValidationError" : false
+}
